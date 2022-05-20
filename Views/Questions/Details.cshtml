@@ -1,4 +1,4 @@
-﻿@model graduation_project.Models.Question
+﻿@model graduation_project.Models.QAvm
 
 @{
     ViewBag.Title = "Details";
@@ -11,32 +11,65 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.title)
+            @Html.DisplayNameFor(model => model.question.title)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.title)
+            @Html.DisplayFor(model => model.question.title)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.question1)
+            @Html.DisplayNameFor(model => model.question.question1)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.question1)
+            @Html.DisplayFor(model => model.question.question1)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.date)
+            @Html.DisplayNameFor(model => model.question.date)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.date)
+            @Html.DisplayFor(model => model.question.date)
         </dd>
 
     </dl>
 </div>
+@for (int i = 0; i < Model.answers.Count(); i++)
+{
+    <p>الجواب بواسطة: @Model.answers[i].Doctor.Person.name </p>
+    <p>@Model.answers[i].answer1</p>
+    <br />
+}
+<p>اضافة جواب</p>
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Question</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.answer.answer1, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.answer.answer1, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.answer.answer1, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @Html.HiddenFor(model=>model.question.ID)
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.question.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

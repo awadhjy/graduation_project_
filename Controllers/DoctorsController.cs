@@ -57,7 +57,7 @@ namespace graduation_project.Controllers
                 Person person = new Person();
                 person.email = personEmail;
                 person.active = true;
-                if (!(person.password == "" || person.password == null))
+                if (!(personPassword == "" || personPassword == null))
                     person.password = Encrypt.GetMD5Hash(personPassword);
                 person.name = personName;
 
@@ -101,7 +101,7 @@ namespace graduation_project.Controllers
                
                 Person person = db.Doctors.Find(doctor.ID).Person;
                     person.email = personEmail;
-                if (!(person.password == "" || person.password == null))
+                if (!(personPassword == "" || personPassword == null))
                     person.password = Encrypt.GetMD5Hash(personPassword);
                     person.name = personName;
 

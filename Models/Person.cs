@@ -11,8 +11,7 @@ namespace graduation_project.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,14 +23,8 @@ namespace graduation_project.Models
         }
     
         public int ID { get; set; }
-        [Required]
-        [DataType(DataType.Text)]
         public string name { get; set; }
-        [Required]
-        [DataType(DataType.EmailAddress)]
         public string email { get; set; }
-        [Required]
-        [DataType(DataType.Password)]
         public string password { get; set; }
         public bool active { get; set; }
     

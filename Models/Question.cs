@@ -24,6 +24,7 @@ namespace graduation_project.Models
         public string title { get; set; }
         public string question1 { get; set; }
         public System.DateTime date { get; set; }
+        public Nullable<bool> active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Answer> Answers { get; set; }

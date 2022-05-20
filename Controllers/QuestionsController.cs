@@ -17,7 +17,7 @@ namespace graduation_project.Controllers
         // GET: Questions
         public ActionResult Index()
         {
-            return View(db.Questions.ToList());
+            return View(db.Questions.Where(q=>q.active==true).ToList());
         }
 
         // GET: Questions/Details/5
@@ -28,15 +28,31 @@ namespace graduation_project.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Question question = db.Questions.Find(id);
+            QAvm qAvm = new QAvm();
+            qAvm.answers= db.Answers.Where(a => a.questionID == id).ToList();
+            qAvm.question = question;
             if (question == null)
             {
                 return HttpNotFound();
             }
-            return View(question);
+            return View(qAvm);
+        }
+        [HttpPost]
+        public ActionResult Details(QAvm qAvm)
+        {
+            
+            qAvm.answer.answerBy= 11;// ----------
+            qAvm.answer.date= DateTime.Now;// ----------
+            qAvm.answer.questionID= qAvm.question.ID;// ----------
+            qAvm.answer.answer1= qAvm.answer.answer1;// ----------
+
+            db.Answers.Add(qAvm.answer);
+            db.SaveChanges();
+            return RedirectToAction("Details",qAvm.question.ID);
         }
 
-        // GET: Questions/Create
-        public ActionResult Create()
+            // GET: Questions/Create
+            public ActionResult Create()
         {
             return View();
         }
@@ -50,6 +66,7 @@ namespace graduation_project.Controllers
         {
             if (ModelState.IsValid)
             {
+                question.date = DateTime.Now;
                 db.Questions.Add(question);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,6 +99,7 @@ namespace graduation_project.Controllers
         {
             if (ModelState.IsValid)
             {
+                question.date = DateTime.Now;
                 db.Entry(question).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -110,7 +128,7 @@ namespace graduation_project.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Question question = db.Questions.Find(id);
-            db.Questions.Remove(question);
+            question.active = false;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="698fd1eaf4b44cf181635d4976bcacae" Name="Diagram1">
+      <Diagram DiagramId="698fd1eaf4b44cf181635d4976bcacae" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="clinicModel.Answer" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="clinicModel.Booking" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="clinicModel.Clinic" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="clinicModel.Clinic" Width="1.5" PointX="0.5" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="clinicModel.Doctor" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="clinicModel.Person" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="clinicModel.PersonRole" Width="1.5" PointX="6" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="clinicModel.PersonRole" Width="1.5" PointX="10" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="clinicModel.Question" Width="1.5" PointX="6" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="clinicModel.Role" Width="1.5" PointX="3.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="clinicModel.Specialization" Width="1.5" PointX="3.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="clinicModel.Role" Width="1.5" PointX="4.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="clinicModel.Specialization" Width="1.5" PointX="3.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="clinicModel.sysdiagram" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="clinicModel.FK_Answer_Doctor" ManuallyRouted="false" />
         <AssociationConnector Association="clinicModel.FK_answers_questions" ManuallyRouted="false" />

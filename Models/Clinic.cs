@@ -24,6 +24,7 @@ namespace graduation_project.Models
         public string name { get; set; }
         public string address { get; set; }
         public string description { get; set; }
+        public bool active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }

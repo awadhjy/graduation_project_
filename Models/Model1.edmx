@@ -35,6 +35,7 @@
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="address" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="nvarchar" MaxLength="50" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -70,6 +71,7 @@
           <Property Name="title" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="question" Type="nvarchar(max)" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="active" Type="bit" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -291,6 +293,7 @@
           <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Bookings" Relationship="Self.FK_booking_clinic" FromRole="Clinic" ToRole="Booking" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -336,6 +339,7 @@
           <Property Name="question1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Answers" Relationship="Self.FK_answers_questions" FromRole="Question" ToRole="Answer" />
+          <Property Name="active" Type="Boolean" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -552,6 +556,7 @@
           <EntitySetMapping Name="Clinics">
             <EntityTypeMapping TypeName="clinicModel.Clinic">
               <MappingFragment StoreEntitySet="Clinic">
+                <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="address" ColumnName="address" />
@@ -591,6 +596,7 @@
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="clinicModel.Question">
               <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="question1" ColumnName="question" />

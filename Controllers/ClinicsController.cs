@@ -10,116 +10,110 @@ using graduation_project.Models;
 
 namespace graduation_project.Controllers
 {
-    public class PersonRolesController : Controller
+    public class ClinicsController : Controller
     {
         private clinicEntities1 db = new clinicEntities1();
 
-        // GET: PersonRoles
+        // GET: Clinics
         public ActionResult Index()
         {
-            var personRoles = db.PersonRoles.Include(p => p.Person).Include(p => p.Role);
-            return View(personRoles.ToList());
+            return View(db.Clinics.Where(c=>c.active==true).ToList());
         }
 
-        // GET: PersonRoles/Details/5
+        // GET: Clinics/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PersonRole personRole = db.PersonRoles.Find(id);
-            if (personRole == null)
+            Clinic clinic = db.Clinics.Find(id);
+            if (clinic == null)
             {
                 return HttpNotFound();
             }
-            return View(personRole);
+            return View(clinic);
         }
 
-        // GET: PersonRoles/Create
+        // GET: Clinics/Create
         public ActionResult Create()
         {
-            ViewBag.personID = new SelectList(db.People, "ID", "name");
-            ViewBag.roleID = new SelectList(db.Roles, "ID", "name");
             return View();
         }
 
-        // POST: PersonRoles/Create
+        // POST: Clinics/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "personID,roleID")] PersonRole personRole)
+        public ActionResult Create([Bind(Include = "ID,name,address,description")] Clinic clinic)
         {
             if (ModelState.IsValid)
             {
-                db.PersonRoles.Add(personRole);
+                clinic.active = true;
+                db.Clinics.Add(clinic);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.personID = new SelectList(db.People, "ID", "name", personRole.personID);
-            ViewBag.roleID = new SelectList(db.Roles, "ID", "name", personRole.roleID);
-            return View(personRole);
+            return View(clinic);
         }
 
-        // GET: PersonRoles/Edit/5
+        // GET: Clinics/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PersonRole personRole = db.PersonRoles.Find(id);
-            if (personRole == null)
+            Clinic clinic = db.Clinics.Find(id);
+            
+            if (clinic == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.personID = new SelectList(db.People, "ID", "name", personRole.personID);
-            ViewBag.roleID = new SelectList(db.Roles, "ID", "name", personRole.roleID);
-            return View(personRole);
+            return View(clinic);
         }
 
-        // POST: PersonRoles/Edit/5
+        // POST: Clinics/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,personID,roleID")] PersonRole personRole)
+        public ActionResult Edit([Bind(Include = "ID,name,address,description")] Clinic clinic)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(personRole).State = EntityState.Modified;
+                clinic.active = true;
+                db.Entry(clinic).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.personID = new SelectList(db.People, "ID", "name", personRole.personID);
-            ViewBag.roleID = new SelectList(db.Roles, "ID", "name", personRole.roleID);
-            return View(personRole);
+            return View(clinic);
         }
 
-        // GET: PersonRoles/Delete/5
+        // GET: Clinics/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PersonRole personRole = db.PersonRoles.Find(id);
-            if (personRole == null)
+            Clinic clinic = db.Clinics.Find(id);
+            if (clinic == null)
             {
                 return HttpNotFound();
             }
-            return View(personRole);
+            return View(clinic);
         }
 
-        // POST: PersonRoles/Delete/5
+        // POST: Clinics/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PersonRole personRole = db.PersonRoles.Find(id);
-            db.PersonRoles.Remove(personRole);
+            Clinic clinic = db.Clinics.Find(id);
+            clinic.active = false;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
