@@ -128,12 +128,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\ClinicsController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\PersonRolesController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
+    <Compile Include="Controllers\SpecializationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -519,6 +521,16 @@
     <Content Include="Views\Clinics\Details.cshtml" />
     <Content Include="Views\Clinics\Edit.cshtml" />
     <Content Include="Views\Clinics\Index.cshtml" />
+    <Content Include="Views\Specializations\Create.cshtml" />
+    <Content Include="Views\Specializations\Delete.cshtml" />
+    <Content Include="Views\Specializations\Details.cshtml" />
+    <Content Include="Views\Specializations\Edit.cshtml" />
+    <Content Include="Views\Specializations\Index.cshtml" />
+    <Content Include="Views\Bookings\Create.cshtml" />
+    <Content Include="Views\Bookings\Delete.cshtml" />
+    <Content Include="Views\Bookings\Details.cshtml" />
+    <Content Include="Views\Bookings\Edit.cshtml" />
+    <Content Include="Views\Bookings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
