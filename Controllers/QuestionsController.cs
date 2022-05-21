@@ -13,7 +13,25 @@ namespace graduation_project.Controllers
     public class QuestionsController : Controller
     {
         private clinicEntities1 db = new clinicEntities1();
+        int userID;
+        string isAuthorized()
+        {
+            var UserRoles = Session["userRoles"];
+            if (UserRoles != null)
+            {
+                userID = int.Parse(Session["userID"].ToString());
+                List<string> userRole = Session["userRoles"] as List<string>;
+                if (userRole.Contains("super") || userRole.Contains("admin"))
+                    return "admin";
+                if (userRole.Contains("doctor"))
+                    return "doctor";
+                if (userRole.Contains("reviewer"))
+                    return "reviewer";
+            }
+            return null;
 
+        }
+    
         // GET: Questions
         public ActionResult Index()
         {
@@ -35,6 +53,7 @@ namespace graduation_project.Controllers
             {
                 return HttpNotFound();
             }
+            _ = isAuthorized() == "doctor" ? ViewBag.isDoctor = true : ViewBag.isDoctor = false;
             return View(qAvm);
         }
         [HttpPost]
