@@ -15,25 +15,44 @@ namespace graduation_project.Controllers
         private clinicEntities1 db = new clinicEntities1();
 
         // GET: People
-        public ActionResult Index()
+        bool isAuthorized()
         {
+            var UserRoles = Session["userRoles"];
+            if (UserRoles != null)
+            {
+                List<string> userRole = Session["userRoles"] as List<string>;
+                if (userRole.Contains("super"))
+                    return true;
+            }
+            return false;
+
+        }
+        public ActionResult Index()
+        
+        {
+            if (isAuthorized())
+                    return View(db.People.Where(p => p.active == true).ToList());
             
-            return View(db.People.Where(p=>p.active==true).ToList());
+            return Content("you have not any access to this part");
         }
 
         // GET: People/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (isAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Person person = db.People.Find(id);
+                if (person == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(person);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
-            {
-                return HttpNotFound();
-            }
-            return View(person);
+            return Content("you have not any access to this part");
         }
 
         // GET: People/Create
@@ -65,7 +84,8 @@ namespace graduation_project.Controllers
         // GET: People/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (isAuthorized()) { 
+                if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -75,7 +95,8 @@ namespace graduation_project.Controllers
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(person); }
+            return Content("you have not any access to this part");
         }
 
         // POST: People/Edit/5
@@ -99,16 +120,20 @@ namespace graduation_project.Controllers
         // GET: People/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (isAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Person person = db.People.Find(id);
+                if (person == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(person);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
-            {
-                return HttpNotFound();
-            }
-            return View(person);
+            return Content("you have not any access to this part");
         }
 
         // POST: People/Delete/5
@@ -116,10 +141,14 @@ namespace graduation_project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Person person = db.People.Find(id);
+            if (isAuthorized())
+            {
+                Person person = db.People.Find(id);
             person.active = false;
             db.SaveChanges();
             return RedirectToAction("Index");
+            }
+            return Content("you have not any access to this part");
         }
 
         protected override void Dispose(bool disposing)

@@ -7,25 +7,42 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using graduation_project.Models;
-using System.Data.Entity;
 
 namespace graduation_project.Controllers
 {
     public class DoctorsController : Controller
     {
         private clinicEntities1 db = new clinicEntities1();
+        bool isAuthorized()
+        {
+            var UserRoles = Session["userRoles"];
+            if (UserRoles != null)
+            {
+                List<string> userRole = Session["userRoles"] as List<string>;
+                if (userRole.Contains("super"))
+                    return true;
+            }
+            return false;
+
+        }
 
         // GET: Doctors
         public ActionResult Index()
         {
-            var doctors = db.Doctors.Include(d => d.Person).Include(d => d.Specialization).Where(d=>d.Person.Doctors.FirstOrDefault().ID>-1);
+            if (isAuthorized())
+            {
+                var doctors = db.Doctors.Include(d => d.Person).Include(d => d.Specialization).Where(d=>d.Person.Doctors.FirstOrDefault().ID>-1);
             return View(doctors.ToList());
+            }
+            return Content("you have not any access to this part");
         }
 
         // GET: Doctors/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (isAuthorized())
+            {
+                if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -35,13 +52,19 @@ namespace graduation_project.Controllers
                 return HttpNotFound();
             }
             return View(doctor);
+            }
+            return Content("you have not any access to this part");
         }
 
         // GET: Doctors/Create
         public ActionResult Create()
         {
-            ViewBag.Specialtie = new SelectList(db.Specializations, "ID", "name");
+            if (isAuthorized())
+            {
+                ViewBag.Specialtie = new SelectList(db.Specializations, "ID", "name");
             return View();
+            }
+            return Content("you have not any access to this part");
         }
 
         // POST: Doctors/Create
@@ -77,7 +100,9 @@ namespace graduation_project.Controllers
         // GET: Doctors/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (isAuthorized())
+            {
+                if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -89,6 +114,8 @@ namespace graduation_project.Controllers
             }
             ViewBag.Specialtie = new SelectList(db.Specializations, "ID", "name", doctor.Specialtie);
             return View(doctor);
+            }
+            return Content("you have not any access to this part");
         }
 
 
@@ -119,7 +146,9 @@ namespace graduation_project.Controllers
         // GET: Doctors/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (isAuthorized())
+            {
+                if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -129,6 +158,8 @@ namespace graduation_project.Controllers
                 return HttpNotFound();
             }
             return View(doctor);
+            }
+            return Content("you have not any access to this part");
         }
 
         // POST: Doctors/Delete/5
@@ -136,12 +167,16 @@ namespace graduation_project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Doctor doctor = db.Doctors.Find(id);
+            if (isAuthorized())
+            {
+                Doctor doctor = db.Doctors.Find(id);
             Person person = db.Doctors.Find(id).Person;
             db.Doctors.Remove(doctor);
             person.active = false;
             db.SaveChanges();
             return RedirectToAction("Index");
+            }
+            return Content("you have not any access to this part");
         }
 
         protected override void Dispose(bool disposing)

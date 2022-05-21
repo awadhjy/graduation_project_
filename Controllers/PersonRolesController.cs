@@ -13,18 +13,35 @@ namespace graduation_project.Controllers
     public class PersonRolesController : Controller
     {
         private clinicEntities1 db = new clinicEntities1();
+        bool isAuthorized()
+        {
+            var UserRoles = Session["userRoles"];
+            if (UserRoles != null)
+            {
+                List<string> userRole = Session["userRoles"] as List<string>;
+                if (userRole.Contains("super"))
+                    return true;
+            }
+            return false;
 
+        }
         // GET: PersonRoles
         public ActionResult Index()
         {
-            var personRoles = db.PersonRoles.Include(p => p.Person).Include(p => p.Role);
+            if (isAuthorized())
+            {
+                var personRoles = db.PersonRoles.Include(p => p.Person).Include(p => p.Role);
             return View(personRoles.ToList());
+            }
+            return Content("you have not any access to this part");
         }
 
         // GET: PersonRoles/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (isAuthorized())
+            {
+                if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -34,14 +51,20 @@ namespace graduation_project.Controllers
                 return HttpNotFound();
             }
             return View(personRole);
+            }
+            return Content("you have not any access to this part");
         }
 
         // GET: PersonRoles/Create
         public ActionResult Create()
         {
-            ViewBag.personID = new SelectList(db.People, "ID", "name");
+            if (isAuthorized())
+            {
+                ViewBag.personID = new SelectList(db.People, "ID", "name");
             ViewBag.roleID = new SelectList(db.Roles, "ID", "name");
             return View();
+            }
+            return Content("you have not any access to this part");
         }
 
         // POST: PersonRoles/Create
@@ -66,7 +89,9 @@ namespace graduation_project.Controllers
         // GET: PersonRoles/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (isAuthorized())
+            {
+                if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -78,6 +103,8 @@ namespace graduation_project.Controllers
             ViewBag.personID = new SelectList(db.People, "ID", "name", personRole.personID);
             ViewBag.roleID = new SelectList(db.Roles, "ID", "name", personRole.roleID);
             return View(personRole);
+            }
+            return Content("you have not any access to this part");
         }
 
         // POST: PersonRoles/Edit/5
@@ -101,7 +128,9 @@ namespace graduation_project.Controllers
         // GET: PersonRoles/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (isAuthorized())
+            {
+                if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -111,6 +140,8 @@ namespace graduation_project.Controllers
                 return HttpNotFound();
             }
             return View(personRole);
+            }
+            return Content("you have not any access to this part");
         }
 
         // POST: PersonRoles/Delete/5
@@ -118,10 +149,14 @@ namespace graduation_project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PersonRole personRole = db.PersonRoles.Find(id);
+            if (isAuthorized())
+            {
+                PersonRole personRole = db.PersonRoles.Find(id);
             db.PersonRoles.Remove(personRole);
             db.SaveChanges();
             return RedirectToAction("Index");
+            }
+            return Content("you have not any access to this part");
         }
 
         protected override void Dispose(bool disposing)
