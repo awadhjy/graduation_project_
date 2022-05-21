@@ -32,9 +32,19 @@ namespace graduation_project.Controllers
             return null;
 
         }
-        // GET: Bookings
-        public ActionResult Index()
+        public ActionResult Confirmed()
         {
+            if (isAuthorized() == "reviewer")
+            {
+                this.bookings = db.Bookings.Include(b => b.Clinic).Include(b => b.Doctor).Include(b => b.Person).Where(b => b.personID == this.userID&&b.active==true);
+                return View(this.bookings.ToList());
+            }
+            return Content("you have not any access to this part");
+        }
+            // GET: Bookings
+            public ActionResult Index()
+        {
+              
             
             switch (isAuthorized())
             {
@@ -137,11 +147,16 @@ namespace graduation_project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,clinicID,doctorID,personID,active,date,note")] Booking booking)
         {
+            
             if (ModelState.IsValid)
             {
-                isAuthorized();
-                booking.personID = this.userID;
-                db.Entry(booking).State = EntityState.Modified;
+                
+                Booking oldbooking = db.Bookings.Find(booking.ID);
+                oldbooking.date = booking.date;
+                oldbooking.clinicID = booking.clinicID;
+                oldbooking.doctorID = booking.doctorID;
+                oldbooking.note = booking.note;
+                oldbooking.active = booking.active;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -173,7 +188,7 @@ namespace graduation_project.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Booking booking = db.Bookings.Find(id);
-            db.Bookings.Remove(booking);
+            booking.active = false;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

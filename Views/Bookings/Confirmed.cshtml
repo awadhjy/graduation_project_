@@ -1,0 +1,50 @@
+﻿@model IEnumerable<graduation_project.Models.Booking>
+
+@{
+    ViewBag.Title = "Confirmed";
+}
+
+<h2>Confirmed</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Clinic.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Doctor.ID)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Clinic.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Doctor.ID)
+        </td>
+        
+        
+    </tr>
+}
+
+</table>
