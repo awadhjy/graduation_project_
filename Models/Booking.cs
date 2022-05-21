@@ -11,15 +11,20 @@ namespace graduation_project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Booking
     {
         public int ID { get; set; }
+
         public int clinicID { get; set; }
         public int doctorID { get; set; }
         public int personID { get; set; }
+        [Display(Name = "«·Õ«·…")]
         public Nullable<bool> active { get; set; }
+        [Display(Name = "«·„Ê⁄œ")]
         public System.DateTime date { get; set; }
+        [Display(Name = "„·«ÕŸ…")]
         public string note { get; set; }
     
         public virtual Clinic Clinic { get; set; }

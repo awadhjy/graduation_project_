@@ -26,18 +26,19 @@ namespace graduation_project.Controllers
         {
             person.password = Encrypt.GetMD5Hash(person.password);
             Person user = db.People.Where(u => u.email == person.email).FirstOrDefault();
-
-            if (user.active && person.email==user.email && person.password==user.password)
+            if(user != null)
+            if (user.active && person.email==user.email && person.password==user.password  )
             {
                 List<string> userRoleIDs = new List<string>();
                 foreach (PersonRole role in user.PersonRoles)
                     userRoleIDs.Add(role.Role.name.ToLower());
                 Session["userID"] = user.ID;
                 Session["userRoles"] = userRoleIDs;
-                
+                    Session.Timeout = 3600;
 
+                    return RedirectToAction("Index", "Home");
 
-            }
+                }
             return View();
         }
 

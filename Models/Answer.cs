@@ -11,15 +11,19 @@ namespace graduation_project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Answer
     {
         public int ID { get; set; }
         public int questionID { get; set; }
+        [Display(Name ="«·«Ã«»…")]
         public string answer1 { get; set; }
+        [Display(Name = "»Ê«”ÿ…")]
+
         public int answerBy { get; set; }
+        [Display(Name = " «—ÌŒ «·«Ã«»…")]
         public System.DateTime date { get; set; }
-    
         public virtual Doctor Doctor { get; set; }
         public virtual Question Question { get; set; }
     }

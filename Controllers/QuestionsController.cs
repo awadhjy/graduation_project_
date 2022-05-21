@@ -35,6 +35,9 @@ namespace graduation_project.Controllers
         // GET: Questions
         public ActionResult Index()
         {
+            ViewBag.inAdmin = false;
+            if (isAuthorized() == "admin")
+                ViewBag.inAdmin = true;
             return View(db.Questions.Where(q=>q.active==true).ToList());
         }
 
@@ -59,15 +62,19 @@ namespace graduation_project.Controllers
         [HttpPost]
         public ActionResult Details(QAvm qAvm)
         {
-            
-            qAvm.answer.answerBy= 11;// ----------
-            qAvm.answer.date= DateTime.Now;// ----------
-            qAvm.answer.questionID= qAvm.question.ID;// ----------
-            qAvm.answer.answer1= qAvm.answer.answer1;// ----------
+            if (isAuthorized() == "doctor")
+            {
+                int docID = db.People.Find(this.userID).Doctors.FirstOrDefault().ID;
+                qAvm.answer.answerBy = docID;// ----------
+                qAvm.answer.date = DateTime.Now;// ----------
+                qAvm.answer.questionID = qAvm.question.ID;// ----------
+                qAvm.answer.answer1 = qAvm.answer.answer1;// ----------
 
-            db.Answers.Add(qAvm.answer);
-            db.SaveChanges();
-            return RedirectToAction("Details",qAvm.question.ID);
+                db.Answers.Add(qAvm.answer);
+                db.SaveChanges();
+                return RedirectToAction("Details", qAvm.question.ID);
+            }
+            return Content("you have not any access to this part");
         }
 
             // GET: Questions/Create
@@ -95,41 +102,43 @@ namespace graduation_project.Controllers
         }
 
         // GET: Questions/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Question question = db.Questions.Find(id);
-            if (question == null)
-            {
-                return HttpNotFound();
-            }
-            return View(question);
-        }
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Question question = db.Questions.Find(id);
+        //    if (question == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(question);
+        //}
 
         // POST: Questions/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,title,question1,date")] Question question)
-        {
-            if (ModelState.IsValid)
-            {
-                question.date = DateTime.Now;
-                db.Entry(question).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(question);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "ID,title,question1,date")] Question question)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        question.date = DateTime.Now;
+        //        db.Entry(question).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(question);
+        //}
 
         // GET: Questions/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (isAuthorized()=="admin")
+            {
+                if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -139,6 +148,8 @@ namespace graduation_project.Controllers
                 return HttpNotFound();
             }
             return View(question);
+            }
+            return Content("you have not any access to this part");
         }
 
         // POST: Questions/Delete/5
@@ -146,10 +157,14 @@ namespace graduation_project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Question question = db.Questions.Find(id);
+            if (isAuthorized()=="admin")
+            {
+                Question question = db.Questions.Find(id);
             question.active = false;
             db.SaveChanges();
             return RedirectToAction("Index");
+            }
+            return Content("you have not any access to this part");
         }
 
         protected override void Dispose(bool disposing)

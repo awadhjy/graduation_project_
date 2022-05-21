@@ -11,11 +11,14 @@ namespace graduation_project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class PersonRole
     {
         public int ID { get; set; }
+        [Display(Name = "«·„” Œœ„")]
         public int personID { get; set; }
+        [Display(Name = "«·œÊ—")]
         public int roleID { get; set; }
     
         public virtual Person Person { get; set; }

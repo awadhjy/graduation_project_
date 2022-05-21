@@ -11,7 +11,8 @@ namespace graduation_project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Clinic
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,9 +22,13 @@ namespace graduation_project.Models
         }
     
         public int ID { get; set; }
+        [Display(Name = "«”„ «·⁄Ì«œ…")]
         public string name { get; set; }
+        [Display(Name = "«·⁄‰Ê«‰")]
         public string address { get; set; }
+        [Display(Name = "«·Ê’›")]
         public string description { get; set; }
+        [Display(Name = "«·Õ«·…")]
         public bool active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
