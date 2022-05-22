@@ -20,7 +20,7 @@ namespace graduation_project.Controllers
             var UserRoles = Session["userRoles"];
             if (UserRoles != null)
             {
-                 userID = int.Parse(Session["userID"].ToString());
+                 this.userID = int.Parse(Session["userID"].ToString());
                 List<string> userRole = Session["userRoles"] as List<string>;
                 if (userRole.Contains("super") || userRole.Contains("admin"))
                     return "admin";
@@ -79,7 +79,8 @@ namespace graduation_project.Controllers
             {
                 return HttpNotFound();
             }
-            if (booking.personID == this.userID|| isAuthorized()=="admin")
+
+            if ( isAuthorized()=="admin"||booking.personID == this.userID)
                 return View(booking);
             return Content("you have not any access to this part");
         }
@@ -106,6 +107,7 @@ namespace graduation_project.Controllers
         {
             if (ModelState.IsValid)
             {
+                _ = isAuthorized();
                 booking.personID = this.userID;
                 db.Bookings.Add(booking);
                 db.SaveChanges();

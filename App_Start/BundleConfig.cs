@@ -25,6 +25,16 @@ namespace graduation_project
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            //#region template Design
+
+            //bundles.Add(new ScriptBundle("~/bundles/argon").Include(
+            //          "~/Scripts/bootstrap.js"));
+
+            //bundles.Add(new StyleBundle("~/Content/argon/css").Include(
+            //          "~/Content/bootstrap.css",
+            //          "~/Content/site.css"));
+
+            //#endregion
         }
     }
 }
