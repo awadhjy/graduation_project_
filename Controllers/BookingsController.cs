@@ -17,6 +17,7 @@ namespace graduation_project.Controllers
         int userID;
         string isAuthorized()
         {
+            TempData["reservation"] = "True";
             var UserRoles = Session["userRoles"];
             if (UserRoles != null)
             {
@@ -34,9 +35,15 @@ namespace graduation_project.Controllers
         }
         public ActionResult Confirmed()
         {
-            if (isAuthorized() == "reviewer")
+            string role = isAuthorized();
+            if ( role== "reviewer")
             {
                 this.bookings = db.Bookings.Include(b => b.Clinic).Include(b => b.Doctor).Include(b => b.Person).Where(b => b.personID == this.userID&&b.active==true);
+                return View(this.bookings.ToList());
+            }
+            else if(role == "admin")
+            {
+                this.bookings = db.Bookings.Include(b => b.Clinic).Include(b => b.Doctor).Include(b => b.Person).Where(b => b.active == true);
                 return View(this.bookings.ToList());
             }
             return Content("you have not any access to this part");
@@ -44,8 +51,13 @@ namespace graduation_project.Controllers
             // GET: Bookings
             public ActionResult Index()
         {
-              
-            
+            ViewBag.pageTitle = "الحجوزات";
+
+            TempData["btn1"] = "Bookings"+","+"Create"+","+"حجز جديد";
+            TempData["btn2"] = "Bookings"+","+ "Confirmed" + ","+"الحجوز المؤكدة";
+
+
+
             switch (isAuthorized())
             {
                 case "reviewer":
