@@ -10,7 +10,9 @@ namespace graduation_project.Controllers
     {
         public ActionResult Index()
         {
+            if(Session["userID"]!=null)
             return View();
+           return RedirectToAction("Index","Login");
         }
 
         public ActionResult About()

@@ -26,9 +26,15 @@ namespace graduation_project.Models
         public int ID { get; set; }
         [Display(Name = "«·«”„")]
         public string name { get; set; }
+        [DataType(DataType.EmailAddress)]
         [Display(Name = "«·»—Ìœ «·≈·ﬂ —Ê‰Ì")]
+        [Required(ErrorMessage = "«·—Ã«¡ «œŒ«· «·»—Ìœ")]
+
         public string email { get; set; }
+        [DataType(DataType.Password)]
+
         [Display(Name = "ﬂ·„… «·„—Ê—")]
+        [Required(ErrorMessage = "«·—Ã«¡ ﬂ «»… ﬂ·„… «·„—Ê—")]
         public string password { get; set; }
         [Display(Name = "«·Õ«·…")]
         public bool active { get; set; }

@@ -13,6 +13,8 @@ namespace graduation_project.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            if (Session["userID"] != null)
+                return RedirectToAction("Index", "Home");
             Person person = new Person();
             return View(person);
         }public ActionResult LogOut()
@@ -24,21 +26,25 @@ namespace graduation_project.Controllers
         [HttpPost]
         public ActionResult Index([Bind(Include = "email,password")] Person person)
         {
-            person.password = Encrypt.GetMD5Hash(person.password);
-            Person user = db.People.Where(u => u.email == person.email).FirstOrDefault();
-            if(user != null)
-            if (user.active && person.email==user.email && person.password==user.password  )
+            
+            if (ModelState.IsValid)
             {
-                List<string> userRoleIDs = new List<string>();
-                foreach (PersonRole role in user.PersonRoles)
-                    userRoleIDs.Add(role.Role.name.ToLower());
-                Session["userID"] = user.ID;
-                Session["userRoles"] = userRoleIDs;
-                    Session.Timeout = 3600;
+                person.password = Encrypt.GetMD5Hash(person.password);
+                Person user = db.People.Where(u => u.email == person.email).FirstOrDefault();
+                if (user != null)
+                    if (user.active && person.email == user.email && person.password == user.password)
+                    {
+                        List<string> userRoleIDs = new List<string>();
+                        foreach (PersonRole role in user.PersonRoles)
+                            userRoleIDs.Add(role.Role.name.ToLower());
+                        Session["userID"] = user.ID;
+                        Session["userRoles"] = userRoleIDs;
+                        Session.Timeout = 3600;
 
-                    return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
 
-                }
+                    }
+            }
             return View();
         }
 

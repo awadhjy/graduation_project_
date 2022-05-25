@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="~/Content/assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="~/Content/assets/img/favicon.png">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - الوعي الصحي</title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
@@ -42,7 +42,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if (TempData["reservation"] != null) { <text>active</text>}" href="../pages/tables.html">
+                    <a class="nav-link @if (TempData["reservation"] != null) { <text>active</text>}" href="bookings">
                         <div class="icon icon-shape icon-sm border-radius-md text-center ms-2 d-flex align-items-center justify-content-center">
                             <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
                         </div>
@@ -116,13 +116,13 @@
                         <li class="nav-item d-flex align-items-center">
                             @if (Session["userID"] == null)
                             {
-                        <a href="login/logout" class="nav-link text-white font-weight-bold px-0">
+                        <a href="login" class="nav-link text-white font-weight-bold px-0">
                             <i class="fa fa-user me-sm-1"></i>
                             <span class="d-sm-inline d-none">تسجيل دخول</span>
                         </a> }
                                     else
                                     {
-                                        <a href="login" class="nav-link text-white font-weight-bold px-0">
+                                        <a href="login/logout" class="nav-link text-white font-weight-bold px-0">
                                             <i class="fa fa-user me-sm-1"></i>
                                             <span class="d-sm-inline d-none">تسجيل خروج</span>
                                         </a>
