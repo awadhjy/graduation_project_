@@ -34,7 +34,7 @@ namespace graduation_project.Controllers
                 var doctors = db.Doctors.Include(d => d.Person).Include(d => d.Specialization).Where(d=>d.Person.Doctors.FirstOrDefault().ID>-1);
             return View(doctors.ToList());
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // GET: Doctors/Details/5
@@ -53,7 +53,7 @@ namespace graduation_project.Controllers
             }
             return View(doctor);
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // GET: Doctors/Create
@@ -64,7 +64,7 @@ namespace graduation_project.Controllers
                 ViewBag.Specialtie = new SelectList(db.Specializations, "ID", "name");
             return View();
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // POST: Doctors/Create
@@ -115,7 +115,7 @@ namespace graduation_project.Controllers
             ViewBag.Specialtie = new SelectList(db.Specializations, "ID", "name", doctor.Specialtie);
             return View(doctor);
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
 
@@ -159,7 +159,7 @@ namespace graduation_project.Controllers
             }
             return View(doctor);
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // POST: Doctors/Delete/5
@@ -176,7 +176,7 @@ namespace graduation_project.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         protected override void Dispose(bool disposing)

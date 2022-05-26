@@ -131,6 +131,7 @@
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\ClinicsController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
+    <Compile Include="Controllers\ErrorPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TimeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -835,10 +837,13 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Bookings\Confirmed.cshtml" />
     <Content Include="Views\Shared\_CLayoutPage.cshtml" />
+    <Content Include="Views\Shared\noAccess.cshtml" />
+    <Content Include="Views\Questions\Conferm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Authorization\" />
+    <Folder Include="Views\ErrorPage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -4,75 +4,95 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="col-xl-12 col-sm-6 mb-xl-0 mb-4 m col-md-12">
 
-<div>
-    <h4>Question</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.question.title)
-        </dt>
+        <div class="card m-2">
 
-        <dd>
-            @Html.DisplayFor(model => model.question.title)
-        </dd>
+            <div class="card-body p-3">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.question.question1)
-        </dt>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="">
+                            <p class="font-weight-bolder">
+                                @Html.DisplayFor(model => model.question.title)
+                            </p>
+                            <h5 class="text-sm mb-0 text-uppercase font-weight-bold  ">
+                                @Html.DisplayFor(model => model.question.question1)
 
-        <dd>
-            @Html.DisplayFor(model => model.question.question1)
-        </dd>
+                            </h5>
+                            
 
-        <dt>
-            @Html.DisplayNameFor(model => model.question.date)
-        </dt>
+                        </div>
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.question.date)
-        </dd>
-
-    </dl>
+                </div>
+            </div>
+        </div>
 </div>
-@for (int i = 0; i < Model.answers.Count(); i++)
-{
-    <p>الجواب بواسطة: @Model.answers[i].Doctor.Person.name </p>
-    <p>@Model.answers[i].answer1</p>
-    <br />
-}
+
+<div class="col-xl-12 col-sm-6 mb-xl-0 mb-4 m col-md-12 container">
+    @for (int i = 0; i < Model.answers.Count(); i++)
+    {
+        
+            <div class="card m-2">
+
+                <div class="card-body p-3">
+
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="">
+                                <p class="font-weight-bolder">
+                                    @Model.answers[i].Doctor.Person.name
+                                </p>
+                                <h5 class="text-sm mb-0 text-uppercase font-weight-bold  ">
+                                    @Model.answers[i].answer1
+
+                                </h5>
+                                <p class="mb-0">
+                                    <span class="text-success text-sm font-weight-bolder">@Model.answers[i].date.ToShortDateString()</span>
+                                </p>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+</div>
 
 
-@if (ViewBag.isDoctor) { 
-using (Html.BeginForm())
+
+
+@if (ViewBag.isDoctor)
 {
-    @Html.AntiForgeryToken()
-    <p>اضافة جواب</p>
-    <div class="form-horizontal">
-        <h4>Question</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.answer.answer1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.answer.answer1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.answer.answer1, "", new { @class = "text-danger" })
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <p>اضافة جواب</p>
+        <div class="form-horizontal">
+            <hr class="dark" />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.answer.answer1, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.answer.answer1, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.answer.answer1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.question.ID)
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="أرسل" class="btn btn-default" />
+                </div>
             </div>
         </div>
-        @Html.HiddenFor(model => model.question.ID)
-
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
     }
+}
 
 <p>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("العودة للأسئلة", "Index")
 </p>

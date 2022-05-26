@@ -10,23 +10,10 @@ namespace graduation_project.Controllers
     {
         public ActionResult Index()
         {
-            if(Session["userID"]!=null)
-            return View();
-           return RedirectToAction("Index","Login");
+            
+           return RedirectToAction("Index", "Questions");
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        
     }
 }

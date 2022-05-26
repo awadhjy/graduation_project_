@@ -33,7 +33,7 @@ namespace graduation_project.Controllers
             if (isAuthorized())
                     return View(db.People.Where(p => p.active == true).ToList());
             
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // GET: People/Details/5
@@ -52,7 +52,7 @@ namespace graduation_project.Controllers
                 }
                 return View(person);
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // GET: People/Create
@@ -96,7 +96,7 @@ namespace graduation_project.Controllers
                 return HttpNotFound();
             }
             return View(person); }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // POST: People/Edit/5
@@ -133,7 +133,7 @@ namespace graduation_project.Controllers
                 }
                 return View(person);
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // POST: People/Delete/5
@@ -148,7 +148,7 @@ namespace graduation_project.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         protected override void Dispose(bool disposing)

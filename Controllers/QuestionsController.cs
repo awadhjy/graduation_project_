@@ -16,6 +16,7 @@ namespace graduation_project.Controllers
         int userID;
         string isAuthorized()
         {
+            TempData["questions"] = "True";
             var UserRoles = Session["userRoles"];
             if (UserRoles != null)
             {
@@ -35,10 +36,37 @@ namespace graduation_project.Controllers
         // GET: Questions
         public ActionResult Index()
         {
+            ViewBag.pageTitle = "الأسئلة";
+
             ViewBag.inAdmin = false;
             if (isAuthorized() == "admin")
                 ViewBag.inAdmin = true;
+            TempData["btn1"] = "Questions" + "," + "Create" + "," + "اضافة سؤال";
             return View(db.Questions.Where(q=>q.active==true).ToList());
+        } 
+        public ActionResult Conferm()
+        {
+            ViewBag.pageTitle = "الأسئلة";
+            if (isAuthorized() == "admin")
+            {
+               
+                return View(db.Questions.Where(q => q.active == null ||q.active==false).ToList());
+            }
+            return View("~/Views/Shared/noAccess.cshtml");
+
+        }
+        [HttpPost]
+        public ActionResult Conferm(int id)
+        {
+            db.Questions.Find(id).active=true;
+            db.SaveChanges();
+
+            ViewBag.pageTitle = "الأسئلة";
+
+            ViewBag.inAdmin = false;
+            if (isAuthorized() == "admin")
+                ViewBag.inAdmin = true;
+            return View(db.Questions.Where(q=>q.active==false).ToList());
         }
 
         // GET: Questions/Details/5
@@ -74,7 +102,7 @@ namespace graduation_project.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Details", qAvm.question.ID);
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
             // GET: Questions/Create
@@ -149,7 +177,7 @@ namespace graduation_project.Controllers
             }
             return View(question);
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // POST: Questions/Delete/5
@@ -164,7 +192,7 @@ namespace graduation_project.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         protected override void Dispose(bool disposing)

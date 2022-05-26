@@ -2,44 +2,41 @@
 
 @{
     ViewBag.Title = "الأسئلة";
+     
+
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.question1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.date)
-        </th>
-        <th></th>
-    </tr>
+<div class="col-xl-12 col-sm-6 mb-xl-0 mb-4 m col-md-12">
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("Details", "Questions", new { id = item.ID })"><div class="card m-2">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.question1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @if(ViewBag.inAdmin){
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID })}
-        </td>
-    </tr>
-}
+            <div class="card-body p-3">
 
-</table>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="numbers">
+                            <p class="text-sm mb-0 text-uppercase font-weight-bold text-truncate"  style="max-width: 150px;">
+                                @Html.DisplayFor(modelItem => item.title)
+                            </p>
+                            <h5 class="font-weight-bolder text-truncate"  style="max-width: 180px;">
+                                @Html.DisplayFor(modelItem => item.question1)
+
+                            </h5>
+                            <p class="mb-0">
+                                <span class="text-success text-sm font-weight-bolder">@item.date.ToShortDateString()</span>
+                            </p>
+                            <p>
+                                @if (ViewBag.inAdmin)
+                                {
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID },new { @class = "btn-danger btn" })}
+                            </p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div></a>}
+    </div>
+

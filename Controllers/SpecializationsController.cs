@@ -32,7 +32,7 @@ namespace graduation_project.Controllers
             {
                 return View(db.Specializations.ToList());
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // GET: Specializations/Details/5
@@ -51,7 +51,7 @@ namespace graduation_project.Controllers
             }
             return View(specialization);
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // GET: Specializations/Create
@@ -61,7 +61,7 @@ namespace graduation_project.Controllers
             {
                 return View();
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // POST: Specializations/Create
@@ -97,7 +97,7 @@ namespace graduation_project.Controllers
             }
             return View(specialization);
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // POST: Specializations/Edit/5
@@ -132,7 +132,7 @@ namespace graduation_project.Controllers
             }
             return View(specialization);
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // POST: Specializations/Delete/5
@@ -147,7 +147,7 @@ namespace graduation_project.Controllers
                 //    db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         protected override void Dispose(bool disposing)

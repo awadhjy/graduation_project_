@@ -46,7 +46,7 @@ namespace graduation_project.Controllers
                 this.bookings = db.Bookings.Include(b => b.Clinic).Include(b => b.Doctor).Include(b => b.Person).Where(b => b.active == true);
                 return View(this.bookings.ToList());
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
             // GET: Bookings
             public ActionResult Index()
@@ -70,7 +70,7 @@ namespace graduation_project.Controllers
                      this.bookings = db.Bookings.Include(b => b.Clinic).Include(b => b.Doctor).Include(b => b.Person);
                     return View(this.bookings.ToList());
                 default:
-                    return Content("you have not any access to this part");
+                    return View("~/Views/Shared/noAccess.cshtml");
 
 
             }
@@ -94,7 +94,7 @@ namespace graduation_project.Controllers
 
             if ( isAuthorized()=="admin"||booking.personID == this.userID)
                 return View(booking);
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // GET: Bookings/Create
@@ -107,7 +107,7 @@ namespace graduation_project.Controllers
                 return View();
             }
         
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
     }
 
         // POST: Bookings/Create
@@ -151,7 +151,7 @@ namespace graduation_project.Controllers
             _ = isAuthorized() == "admin" ? ViewBag.isAdmin = true : ViewBag.isAdmin = false;
             if (booking.personID == this.userID|| isAuthorized()=="admin")
                 return View(booking);
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // POST: Bookings/Edit/5

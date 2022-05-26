@@ -1,0 +1,59 @@
+﻿@model IEnumerable<graduation_project.Models.Question>
+
+@{
+    ViewBag.Title = "تاكيد سؤال";
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.question1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.active)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.question1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            
+                @if (Model.FirstOrDefault().active != true) { <td>غير فعال</td>} 
+            
+        <td>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.FirstOrDefault().ID" />
+                <input class="btn" type="submit" value="موافقة" />
+                 }
+        </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

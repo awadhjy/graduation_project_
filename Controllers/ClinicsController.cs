@@ -32,7 +32,7 @@ namespace graduation_project.Controllers
             {
                 return View(db.Clinics.Where(c=>c.active==true).ToList());
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // GET: Clinics/Details/5
@@ -51,7 +51,7 @@ namespace graduation_project.Controllers
             }
             return View(clinic);
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // GET: Clinics/Create
@@ -61,7 +61,7 @@ namespace graduation_project.Controllers
             {
                 return View();
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // POST: Clinics/Create
@@ -99,7 +99,7 @@ namespace graduation_project.Controllers
             }
             return View(clinic);
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // POST: Clinics/Edit/5
@@ -135,7 +135,7 @@ namespace graduation_project.Controllers
             }
             return View(clinic);
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         // POST: Clinics/Delete/5
@@ -150,7 +150,7 @@ namespace graduation_project.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
             }
-            return Content("you have not any access to this part");
+            return View("~/Views/Shared/noAccess.cshtml");
         }
 
         protected override void Dispose(bool disposing)

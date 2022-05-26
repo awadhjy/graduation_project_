@@ -14,13 +14,13 @@ namespace graduation_project.Controllers
         public ActionResult Index()
         {
             if (Session["userID"] != null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Questions");
             Person person = new Person();
             return View(person);
         }public ActionResult LogOut()
         {
             Session.Clear();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Questions");
         }
 
         [HttpPost]
@@ -41,7 +41,7 @@ namespace graduation_project.Controllers
                         Session["userRoles"] = userRoleIDs;
                         Session.Timeout = 3600;
 
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Questions");
 
                     }
             }
