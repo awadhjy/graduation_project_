@@ -4,47 +4,51 @@
     ViewBag.Title = "Confirmed";
 }
 
-<h2>Confirmed</h2>
+<h2>حجوزات مؤكدة</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.note)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Clinic.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Doctor.ID)
-        </th>
-        
-        <th></th>
-    </tr>
+<div class="col-xl-12 col-sm-6 mb-xl-0 mb-4 m col-md-12">
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("Details", "Bookings", new { id = item.ID })">
+            <div class="card m-2">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.note)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Clinic.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Doctor.ID)
-        </td>
-        
-        
-    </tr>
-}
+                <div class="card-body p-3">
 
-</table>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold ">
+                                    @Html.DisplayFor(modelItem => item.Clinic.name) - @Html.DisplayName(" مع الطبيب")   @Html.DisplayFor(modelItem => item.Doctor.Person.name)
+
+                                </p>
+                                <h5 class="font-weight-bolder ">
+                                    @if (item.active == true)
+                                    {
+                                        <span class="text-success">تم تأكيد الحجز</span>
+                                    }
+                                    else if (item.active == false)
+                                    { <span class="text-danger">تم رفض الحجز</span>
+                                    }
+                                    else
+                                    { <span>قيد الانتظار</span>
+                                    }
+
+                                </h5>
+                                <p class="mb-0">
+                                    <span class="text-success text-sm font-weight-bolder">@item.date.ToShortDateString()</span>
+                                </p>
+                                <br />
+                                <p>
+                                    @Html.ActionLink("تعديل", "Edit", new { id = item.ID }, new { @class = " btn" }) |
+                                    @Html.ActionLink("حذف", "Delete", new { id = item.ID }, new { @class = "btn-danger btn" })
+
+
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </a>}
+</div>

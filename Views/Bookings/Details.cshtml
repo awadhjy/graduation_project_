@@ -4,63 +4,31 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>الملاحظات</h2>
+<div class="col-xl-12 col-sm-6 mb-xl-0 mb-4">
+    <div class="card">
+        <div class="card-body p-3">
+            <div class="row">
+                <div class="col-8">
+                    <div class="numbers">
+                        <h5 class="font-weight-bolder">
+                           الملاحظة
+                        </h5>
+                        <p class="text-sm mb-0 text-uppercase font-weight-bold p-4">@Model.note</p>
 
-<div>
-    <h4>Booking</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.active)
-        </dt>
+                        
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.active)
-        </dd>
+            </div>
+        </div>
+    </div>
+</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.note)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.note)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Clinic.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Clinic.name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Doctor.ID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Doctor.ID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Person.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Person.name)
-        </dd>
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+<p class="p-3">
+    @Html.ActionLink("تعديل", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("الرجوع لقائمة الحجز", "Index")
 </p>

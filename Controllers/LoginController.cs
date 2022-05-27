@@ -39,6 +39,11 @@ namespace graduation_project.Controllers
                             userRoleIDs.Add(role.Role.name.ToLower());
                         Session["userID"] = user.ID;
                         Session["userRoles"] = userRoleIDs;
+                        Session["userName"] = user.name;
+                        if (userRoleIDs.Contains("admin") || userRoleIDs.Contains("super"))
+                        {
+                            Session["isadmin"] = "True";
+                        }
                         Session.Timeout = 3600;
 
                         return RedirectToAction("Index", "Questions");

@@ -4,79 +4,80 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>تعديل</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Booking</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.clinicID, "clinicID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("clinicID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.clinicID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.doctorID, "doctorID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("doctorID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.doctorID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-       
-        @if (ViewBag.isAdmin)
-        {
-        <div class="form-group">
-            @Html.LabelFor(model => model.active, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.active)
-                    @Html.ValidationMessageFor(model => model.active, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>}
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.date, "{0:yyyy-MM-ddTHH:mm:ss}", new
-                       {
-                           @class = "form-control",
-                           required = "required",
-                           @type = "datetime-local"
-                       })
-                @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.note, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.note, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.note, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.Label("العيادة", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("clinicID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.clinicID, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.Label("الطبيب", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("doctorID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.doctorID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    @if (ViewBag.isAdmin)
+    {<div class="form-group">
+    <select name="active"  class="dropdown-header" >
+        <optgroup label="الحالة">
+            <option @if (Model.active==null) { <text> selected </text>} value=null>لم تحدد بعد</option>
+            <option @if (Model.active==true) { <text> selected </text>} value=1 class="btn text-success">تأكيد</option>
+            <option @if (Model.active==false) { <text> selected </text>} value=0 class="btn text-danger">رفض</option>
+        </optgroup>
+        
+    </select>
+    
+</div>
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.date, "{0:yyyy-MM-ddTHH:mm:ss}", new
+                   {
+                       @class = "form-control",
+                       required = "required",
+                       @type = "datetime-local"
+                   })
+            @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.note, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.note, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.note, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="عدّل" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("الرجوع لقائمة الحجز", "Index")
 </div>
 
 @section Scripts {

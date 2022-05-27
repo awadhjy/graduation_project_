@@ -16,9 +16,13 @@ namespace graduation_project.Models
     public partial class Booking
     {
         public int ID { get; set; }
-
+        [Display(Name = "«·⁄Ì«œ…")]
         public int clinicID { get; set; }
+        [Display(Name = "«·ÿ»Ì»")]
+
         public int doctorID { get; set; }
+        [Display(Name = "«·‘Œ’")]
+
         public int personID { get; set; }
         [Display(Name = "«·Õ«·…")]
         public Nullable<bool> active { get; set; }

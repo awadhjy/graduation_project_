@@ -1,0 +1,176 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mb-4 ">
+    <div class="col-xl-3 col-sm-6 mt-6">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 float-start">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="text-end pt-1">
+                    <h4 class="text-sm mb-0 text-capitalizepr pr-4 text-right ">المستخدمين</h4>
+                    <h4 class="mb-0">
+                    </h4>
+                </div>
+            </div>
+            <hr class="dark horizontal my-0">
+
+            <div class="card-footer p-3">
+                <a href="@Url.Action("Index", "People")"><span class="btn ">عرض</span></a>
+                <a href="@Url.Action("create", "People")"><span class="btn ">إضافة</span></a>
+                <a href="@Url.Action("Index", "People")"><span class="btn ">تعديل</span></a>
+                <a href="@Url.Action("Index", "People")"><span class="btn btn-danger">حذف</span></a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xl-3 col-sm-6 mt-6">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 float-start">
+                    <i class="fa fa-user-plus"></i>
+                </div>
+                <div class="text-end pt-1">
+                    <h4 class="text-sm mb-0 text-capitalizepr pr-4 text-right ">ادارة الأدوار</h4>
+                    <h4 class="mb-0">
+                    </h4>
+                </div>
+            </div>
+            <hr class="dark horizontal my-0">
+
+            <div class="card-footer p-3">
+                <a href="@Url.Action("Index", "PersonRoles")"><span class="btn ">عرض</span></a>
+                <a href="@Url.Action("create", "PersonRoles")"><span class="btn ">إضافة</span></a>
+                <a href="@Url.Action("Index", "PersonRoles")"><span class="btn ">تعديل</span></a>
+                <a href="@Url.Action("Index", "PersonRoles")"><span class="btn btn-danger">حذف</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row mb-4 ">
+    <div class="col-xl-3 col-sm-6 mt-6">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 float-start">
+                    <i class="fa fa-user-md"></i>
+                </div>
+                <div class="text-end pt-1">
+                    <h4 class="text-sm mb-0 text-capitalizepr pr-4 text-right ">الأطباء</h4>
+                    <h4 class="mb-0">
+                    </h4>
+                </div>
+            </div>
+            <hr class="dark horizontal my-0">
+
+            <div class="card-footer p-3">
+                <a href="@Url.Action("Index", "doctors")"><span class="btn ">عرض</span></a>
+                <a href="@Url.Action("create", "doctors")"><span class="btn ">إضافة</span></a>
+                <a href="@Url.Action("Index", "doctors")"><span class="btn ">تعديل</span></a>
+                <a href="@Url.Action("Index", "doctors")"><span class="btn btn-danger">حذف</span></a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xl-3 col-sm-6 mt-6">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 float-start">
+                    <i class="fa fa-stethoscope"></i>
+                </div>
+                <div class="text-end pt-1">
+                    <h4 class="text-sm mb-0 text-capitalizepr pr-4 text-right ">التخصصات الطبية</h4>
+                    <h4 class="mb-0">
+                    </h4>
+                </div>
+            </div>
+            <hr class="dark horizontal my-0">
+
+            <div class="card-footer p-3">
+                <a href="@Url.Action("Index", "Specializations")"><span class="btn ">عرض</span></a>
+                <a href="@Url.Action("create", "Specializations")"><span class="btn ">إضافة</span></a>
+                <a href="@Url.Action("Index", "Specializations")"><span class="btn ">تعديل</span></a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xl-3 col-sm-6 mt-6">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 float-start">
+                    <i class="fa fa-hospital-o"></i>
+                </div>
+                <div class="text-end pt-1">
+                    <h4 class="text-sm mb-0 text-capitalizepr pr-4 text-right ">العيادات</h4>
+                    <h4 class="mb-0">
+                    </h4>
+                </div>
+            </div>
+            <hr class="dark horizontal my-0">
+
+            <div class="card-footer p-3">
+                <a href="@Url.Action("Index", "Clinics")"><span class="btn ">عرض</span></a>
+                <a href="@Url.Action("create", "Clinics")"><span class="btn ">إضافة</span></a>
+                <a href="@Url.Action("Index", "Clinics")"><span class="btn ">تعديل</span></a>
+                <a href="@Url.Action("Index", "Clinics")"><span class="btn btn-danger">حذف</span></a>
+            </div>
+        </div>
+    </div>
+    </div>
+<hr />
+<div class="row mb-4 mt-6">
+
+
+
+    <div class="col-xl-3 col-sm-6 ">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 float-start">
+                    <i class="fa fa-question"></i>
+                </div>
+                <div class="text-end pt-1">
+                    <h4 class="text-sm mb-0 text-capitalizepr pr-4 text-right ">الاسئلة</h4>
+                    <h4 class="mb-0">
+                    </h4>
+                </div>
+            </div>
+            <hr class="dark horizontal my-0">
+
+            <div class="card-footer p-3">
+                <a href="@Url.Action("Index", "Questions")"><span class="btn ">عرض</span></a>
+                <a href="@Url.Action("Conferm", "Questions")"><span class="btn btn-secondary ">موافقة</span></a>
+                <a href="@Url.Action("Index", "Questions")"><span class="btn btn-danger">حذف</span></a>
+            </div>
+        </div>
+    </div>
+     <div class="col-xl-3 col-sm-6 ">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 float-start">
+                    <i class="fa fa-check-square-o"></i>
+                </div>
+                <div class="text-end pt-1">
+                    <h4 class="text-sm mb-0 text-capitalizepr pr-4 text-right ">الحجوز</h4>
+                    <h4 class="mb-0">
+                    </h4>
+                </div>
+            </div>
+            <hr class="dark horizontal my-0">
+
+            <div class="card-footer p-3">
+                <a href="@Url.Action("Index", "Bookings")"><span class="btn ">عرض</span></a>
+                <a href="@Url.Action("Conferm", "Bookings")"><span class="btn btn-secondary ">موافقة</span></a>
+                <a href="@Url.Action("Index", "Bookings")"><span class="btn">تعديل</span></a>
+                <a href="@Url.Action("Index", "Bookings")"><span class="btn btn-danger">حذف</span></a>
+            </div>
+        </div>
+    </div>
+
+</div>

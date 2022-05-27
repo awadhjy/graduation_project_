@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\ClinicsController.cs" />
+    <Compile Include="Controllers\ControlController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\ErrorPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -300,7 +301,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\nucleo-icons.svg" />
     <Content Include="Global.asax" />
@@ -315,8 +319,10 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\buttons.js" />
     <Content Include="Scripts\argon\argon-dashboard.js" />
     <Content Include="Scripts\argon\argon-dashboard.min.js" />
+    <Content Include="Scripts\42d5adcbca.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\Model1.edmx">
@@ -511,6 +517,11 @@
     <Content Include="Content\assets\scss\argon-dashboard\_utilities-extend.scss" />
     <Content Include="Content\assets\scss\argon-dashboard\_utilities.scss" />
     <Content Include="Content\assets\scss\argon-dashboard\_variables.scss" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\argon\core\bootstrap.bundle.min.js" />
     <Content Include="Scripts\argon\core\bootstrap.min.js" />
@@ -839,6 +850,7 @@
     <Content Include="Views\Shared\_CLayoutPage.cshtml" />
     <Content Include="Views\Shared\noAccess.cshtml" />
     <Content Include="Views\Questions\Conferm.cshtml" />
+    <Content Include="Views\Control\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,7 +9,7 @@
     <div class="col-xl-12 col-sm-6 mb-xl-0 mb-4 m col-md-12">
         @foreach (var item in Model)
         {
-            <a href="@Url.Action("Details", "Questions", new { id = item.ID })">
+            <a href="@Url.Action("Details", "Bookings", new { id = item.ID })">
                 <div class="card m-2">
 
                     <div class="card-body p-3">
@@ -24,10 +24,10 @@
                                     <h5 class="font-weight-bolder ">
                                         @if (item.active == true)
                                         {
-                                            <span>تم تأكيد الحجز</span>
+                                            <span class="text-success">تم تأكيد الحجز</span>
                                         }
                                         else if (item.active == false)
-                                        { <span>تم رفض الحجز</span>
+                                        { <span class="text-danger">تم رفض الحجز</span>
                                         }
                                         else
                                         { <span>قيد الانتظار</span>

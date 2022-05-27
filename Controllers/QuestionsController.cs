@@ -17,6 +17,8 @@ namespace graduation_project.Controllers
         string isAuthorized()
         {
             TempData["questions"] = "True";
+            TempData["reservation"] = null;
+            TempData["control"] = null;
             var UserRoles = Session["userRoles"];
             if (UserRoles != null)
             {
@@ -108,6 +110,8 @@ namespace graduation_project.Controllers
             // GET: Questions/Create
             public ActionResult Create()
         {
+            TempData["questions"] = "True";
+
             return View();
         }
 

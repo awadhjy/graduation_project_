@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using graduation_project.Models;
 
 namespace graduation_project.Controllers
@@ -18,6 +19,8 @@ namespace graduation_project.Controllers
         string isAuthorized()
         {
             TempData["reservation"] = "True";
+            TempData["questions"] = null;
+            TempData["control"] = null;
             var UserRoles = Session["userRoles"];
             if (UserRoles != null)
             {
@@ -64,7 +67,7 @@ namespace graduation_project.Controllers
                      this.bookings = db.Bookings.Include(b => b.Clinic).Include(b => b.Doctor).Include(b => b.Person).Where(b=>b.personID==this.userID );
                     return View(this.bookings.ToList());
                 case "doctor":
-                     this.bookings = db.Bookings.Include(b => b.Clinic).Include(b => b.Doctor).Include(b => b.Person).Where(b=>b.doctorID== this.userID);
+                     this.bookings = db.Bookings.Include(b => b.Clinic).Include(b => b.Doctor).Include(b => b.Person).Where(b=>b.Doctor.personID== this.userID);
                     return View(this.bookings.ToList());
                 case "admin":
                      this.bookings = db.Bookings.Include(b => b.Clinic).Include(b => b.Doctor).Include(b => b.Person);
@@ -91,7 +94,6 @@ namespace graduation_project.Controllers
             {
                 return HttpNotFound();
             }
-
             if ( isAuthorized()=="admin"||booking.personID == this.userID)
                 return View(booking);
             return View("~/Views/Shared/noAccess.cshtml");
@@ -144,10 +146,16 @@ namespace graduation_project.Controllers
             {
                 return HttpNotFound();
             }
+
+            
+            var data = from d in db.Doctors
+                       from p in db.People
+                       where p.ID == d.personID
+                       select new SelectListItem { Value =d.ID.ToString(), Text = p.name };
+
             ViewBag.clinicID = new SelectList(db.Clinics, "ID", "name", booking.clinicID);
-            ViewBag.doctorID = new SelectList(db.Doctors, "ID", "ID", booking.doctorID);
-            //ViewBag.personID = new SelectList(db.People, "ID", "name", booking.personID);
-            //return View(booking);
+            ViewBag.doctorID = new SelectList(data, "Value", "Text");
+
             _ = isAuthorized() == "admin" ? ViewBag.isAdmin = true : ViewBag.isAdmin = false;
             if (booking.personID == this.userID|| isAuthorized()=="admin")
                 return View(booking);
@@ -159,7 +167,7 @@ namespace graduation_project.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,clinicID,doctorID,personID,active,date,note")] Booking booking)
+        public ActionResult Edit([Bind(Include = "ID,clinicID,doctorID,personID,date,note")] Booking booking ,String active)
         {
             
             if (ModelState.IsValid)
@@ -169,8 +177,19 @@ namespace graduation_project.Controllers
                 oldbooking.date = booking.date;
                 oldbooking.clinicID = booking.clinicID;
                 oldbooking.doctorID = booking.doctorID;
+                switch (active)
+                {
+                    case "null":
+                        oldbooking.active = null;
+                        break;
+                    case "1":
+                        oldbooking.active = true;
+                        break;
+                    case "0":
+                        oldbooking.active = false;
+                        break;
+                }
                 oldbooking.note = booking.note;
-                oldbooking.active = booking.active;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

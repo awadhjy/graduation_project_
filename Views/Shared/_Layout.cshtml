@@ -9,12 +9,12 @@
     <link rel="icon" type="image/png" href="~/Content/assets/img/favicon.png">
     <title>@ViewBag.Title - الوعي الصحي</title>
     <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
     <link href="~/Content/assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="~/Content/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <script src="~/Scripts/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="~/Content/assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="~/Content/assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
@@ -35,19 +35,22 @@
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse px-0 w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
+            @if (Session["isadmin"] != null)
+            {
             <li class="nav-item">
-                <a class="nav-link " href="../pages/dashboard.html">
+                <a class="nav-link @if (TempData["control"] != null)
+                { <text>active</text>}" href="@Url.Action("Index", "Control")">
                     <div class="icon icon-shape icon-sm border-radius-md text-center ms-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text me-1">لوحة التحكم</span>
                 </a>
-            </li>
+            </li>}
             <li class="nav-item">
 
 
                 <a class="nav-link @if (TempData["reservation"] != null)
-                                { <text>active</text>}" href="@Url.Action("Index", "Bookings")">
+                { <text>active</text>}" href="@Url.Action("Index", "Bookings")">
 
                     <div class="icon icon-shape icon-sm border-radius-md text-center ms-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
@@ -59,56 +62,14 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link @if (TempData["questions"] != null)
-                                                                { <text>active</text>}" href="@Url.Action("Index", "Questions")">
+                { <text>active</text>}" href="@Url.Action("Index", "Questions")">
 
                     <div class="icon icon-shape icon-sm border-radius-md text-center ms-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text me-1">الاسئلة</span>
                 </a>
-            </li> @*<li class="nav-item">
-                    <a class="nav-link " href="../pages/virtual-reality.html">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center ms-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-app text-info text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text me-1">الواقع الافتراضي</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="../pages/rtl.html">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center ms-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text me-1">RTL</span>
-                    </a>
-                </li>
-                <li class="nav-item mt-3">
-                    <h6 class="ps-4 me-4 pe-2 text-uppercase text-xs font-weight-bolder opacity-6">صفحات المرافق</h6>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="../pages/profile.html">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center ms-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text me-1">حساب تعريفي</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="../pages/sign-in.html">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center ms-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text me-1">تسجيل الدخول</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="../pages/sign-up.html">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center ms-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-collection text-info text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text me-1">اشتراك</span>
-                    </a>
-                </li>*@
+            </li>
         </ul>
     </div>
 
@@ -122,109 +83,46 @@
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 px-0" id="navbar">
 
                     <ul class="navbar-nav me-auto ms-0 justify-content-end">
+                        @if (Session["userID"] != null) { 
+                            <li>
+                                <span class="nav-link text-white font-weight-bold px-0">
+
+                                    <span class="d-sm-inline d-none ps-2"> مرحباً </span>
+                                    <span class="ps-4"> @Session["userName"] </span>
+                                </span>
+                            </li>}
                         <li class="nav-item d-flex align-items-center">
                             @if (Session["userID"] == null)
                             {
-                <a href="@Url.Action("Index", "login")" class="nav-link text-white font-weight-bold px-0">
-                    <i class="fa fa-user me-sm-1"></i>
-                    <span class="d-sm-inline d-none">تسجيل دخول</span>
-                </a> }
-            else
-            {
-<a href="@Url.Action("logout", "login")" class="nav-link text-white font-weight-bold px-0">
-    <i class="fa fa-user me-sm-1"></i>
-    <span class="d-sm-inline d-none">تسجيل خروج</span>
-</a>}
+                    <a href="@Url.Action("Index", "login")" class="nav-link text-white font-weight-bold px-0">
+                        <i class="fa fa-user me-sm-1"></i>
+                        <span class="d-sm-inline d-none">تسجيل دخول</span>
+                    </a> }
+                else
+                {
+                    <a href="@Url.Action("logout", "login")" class="nav-link text-white font-weight-bold px-0">
+                        <i class="fa fa-sign-out me-sm-1"></i>
+                        <span class="d-sm-inline d-none">تسجيل خروج</span>
+                    </a>}
                         </li>
-                        <li class="nav-item d-xl-none pe-3 d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
-                                <div class="sidenav-toggler-inner">
-                                    <i class="sidenav-toggler-line bg-white"></i>
-                                    <i class="sidenav-toggler-line bg-white"></i>
-                                    <i class="sidenav-toggler-line bg-white"></i>
-                                </div>
-                            </a>
-                        </li>
+                        <a href="javascript:;">
+                            <li class="nav-item d-xl-none pe-3 d-flex align-items-center">
+                                <a class="nav-link text-white p-0" id="iconNavbarSidenav">
+                                    <div class="sidenav-toggler-inner">
+                                        <i class="sidenav-toggler-line bg-white"></i>
+                                        <i class="sidenav-toggler-line bg-white"></i>
+                                        <i class="sidenav-toggler-line bg-white"></i>
+                                    </div>
+                                </a>
+                            </li>
+                        </a>
                         @if (Session["userID"] != null)
                         {
-            <li class="nav-item px-3 d-flex align-items-center">
-                <a href="javascript:;" class="nav-link text-white p-0">
-                    <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-                </a>
-            </li>
-} @*<li class="nav-item dropdown ps-2 d-flex align-items-center">
-        <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa fa-bell cursor-pointer"></i>
-        </a>
-        <ul class="dropdown-menu  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-            <li class="mb-2">
-                <a class="dropdown-item border-radius-md" href="javascript:;">
-                    <div class="d-flex py-1">
-                        <div class="my-auto">
-                            <img src="~/Content/assets/img/team-2.jpg" class="avatar avatar-sm  ms-3 ">
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                            <h6 class="text-sm font-weight-normal mb-1">
-                                <span class="font-weight-bold">New message</span> from Laur
-                            </h6>
-                            <p class="text-xs text-secondary mb-0">
-                                <i class="fa fa-clock me-1"></i>
-                                13 minutes ago
-                            </p>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class="mb-2">
-                <a class="dropdown-item border-radius-md" href="javascript:;">
-                    <div class="d-flex py-1">
-                        <div class="my-auto">
-                            <img src="~/Content/assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  ms-3 ">
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                            <h6 class="text-sm font-weight-normal mb-1">
-                                <span class="font-weight-bold">New album</span> by Travis Scott
-                            </h6>
-                            <p class="text-xs text-secondary mb-0">
-                                <i class="fa fa-clock me-1"></i>
-                                1 day
-                            </p>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item border-radius-md" href="javascript:;">
-                    <div class="d-flex py-1">
-                        <div class="avatar avatar-sm bg-gradient-secondary  ms-3  my-auto">
-                            <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <title>credit-card</title>
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                        <g transform="translate(1716.000000, 291.000000)">
-                                            <g transform="translate(453.000000, 454.000000)">
-                                                <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
-                                                <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </g>
-                            </svg>
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                            <h6 class="text-sm font-weight-normal mb-1">
-                                Payment successfully completed
-                            </h6>
-                            <p class="text-xs text-secondary mb-0">
-                                <i class="fa fa-clock me-1"></i>
-                                2 days
-                            </p>
-                        </div>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </li>*@
+                    <li class="nav-item px-3 d-flex align-items-center">
+                        <a href="javascript:;" class="nav-link text-white p-0">
+                            <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                        </a>
+                    </li> } 
                     </ul>
                 </div>
             </div>
@@ -338,13 +236,7 @@
                 <button class="btn bg-gradient-primary w-100 px-3 mb-2" data-class="bg-default" onclick="sidebarType(this)">غامق</button>
             </div>
             <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
-            <!-- Navbar Fixed -->
-            @*<div class="d-flex my-3">
-                    <h6 class="mb-0">Navbar Fixed</h6>
-                    <div class="form-check form-switch ps-0 ms-auto my-auto">
-                        <input class="form-check-input mt-1 float-end me-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
-                    </div>
-                </div>*@
+
             <hr class="horizontal dark my-sm-4">
             <div class="mt-2 mb-5 d-flex">
                 <h6 class="mb-0">النمط الغامق</h6>
@@ -453,7 +345,7 @@
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }</script>
     <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script async defer src="~/Scripts/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="~/Content/assets/js/argon-dashboard.min.js?v=2.0.2"></script>
 </body>
