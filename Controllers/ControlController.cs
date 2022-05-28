@@ -21,12 +21,15 @@ namespace graduation_project.Controllers
             {
                 userID = int.Parse(Session["userID"].ToString());
                 List<string> userRole = Session["userRoles"] as List<string>;
-                if (userRole.Contains("super") || userRole.Contains("admin"))
+                if (userRole.Contains("admin"))
                     return "admin";
                 if (userRole.Contains("doctor"))
                     return "doctor";
                 if (userRole.Contains("reviewer"))
                     return "reviewer";
+                if (userRole.Contains("super"))
+                    TempData["super"] = "True";
+                    return "super";
             }
             return null;
 
@@ -36,7 +39,7 @@ namespace graduation_project.Controllers
         {
             ViewBag.pageTitle = "لوحة التحكم";
             TempData["control"] = "True";
-            if (isAuthorized()=="admin")
+            if (isAuthorized()=="admin"|| isAuthorized() == "super")
             {
                 return View();
             }

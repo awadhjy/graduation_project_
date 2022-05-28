@@ -19,7 +19,7 @@ namespace graduation_project.Controllers
             if (UserRoles != null)
             {
                 List<string> userRole = Session["userRoles"] as List<string>;
-                if (userRole.Contains("super") ||userRole.Contains("admin") )
+                if (userRole.Contains("super") )
                     return true;
             }
             return false;

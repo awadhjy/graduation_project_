@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@if (TempData["super"] != null) { 
 <div class="row mb-4 ">
     <div class="col-xl-3 col-sm-6 mt-6">
         <div class="card">
@@ -124,7 +124,7 @@
         </div>
     </div>
     </div>
-<hr />
+<hr />}
 <div class="row mb-4 mt-6">
 
 

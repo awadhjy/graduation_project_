@@ -58,8 +58,12 @@ namespace graduation_project.Controllers
         // GET: People/Create
         public ActionResult Create()
         {
-            return View();
+            if (isAuthorized())
+            {
+                return View();
         }
+            return View("~/Views/Shared/noAccess.cshtml");
+    }
 
         // POST: People/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
