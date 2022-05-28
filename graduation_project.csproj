@@ -851,6 +851,7 @@
     <Content Include="Views\Shared\noAccess.cshtml" />
     <Content Include="Views\Questions\Conferm.cshtml" />
     <Content Include="Views\Control\Index.cshtml" />
+    <Content Include="Views\Bookings\Confirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -171,7 +171,32 @@ namespace graduation_project.Controllers
             {
                 Doctor doctor = db.Doctors.Find(id);
             Person person = db.Doctors.Find(id).Person;
-            db.Doctors.Remove(doctor);
+            var roles = db.Doctors.Find(id).Person.PersonRoles.ToList();
+            var books = db.Doctors.Find(id).Bookings.ToList();
+            var answers = db.Doctors.Find(id).Answers.ToList();
+                int rolesCount = roles.Count();
+                int booksCount = books.Count();
+                int answersCount = answers.Count();
+                bool lenght= (rolesCount > booksCount );
+                for (int index=0;index< (rolesCount > booksCount?answersCount>rolesCount?answersCount:rolesCount:booksCount>answersCount?booksCount:answersCount); index++)
+                {
+                    if (rolesCount>index)
+                    {
+                        db.PersonRoles.Remove(roles[index]);
+
+                    }
+                    if (booksCount > index)
+                    {
+                        db.Bookings.Remove(books[index]);
+                    }
+                    if (answersCount > index)
+                    {
+                        db.Answers.Remove(answers[index]);
+                    }
+
+
+                }
+                db.Doctors.Remove(doctor);
             person.active = false;
             db.SaveChanges();
             return RedirectToAction("Index");

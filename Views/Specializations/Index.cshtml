@@ -1,33 +1,45 @@
 ﻿@model IEnumerable<graduation_project.Models.Specialization>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "قائمة التخصصات";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID })  
-            @*@Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
-        </td>
-    </tr>
-}
 
-</table>
+
+
+<div class="card ">
+
+    <div class="table-responsive">
+        <table class="table align-items-center ">
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="w-30">
+                            <div class="d-flex px-2 py-1 align-items-center">
+                                <div class="ms-4">
+                                    <p class="text-xs font-weight-bold mb-0">الإختصاص</p>
+                                    <h6 class="text-sm mb-0">
+                                        @Html.DisplayFor(modelItem => item.name)
+                                    </h6>
+                                </div>
+                            </div>
+                        </td>
+                        
+                        <td class="align-middle text-sm">
+                            <div class="col text-center">
+                                <p class="text-xs font-weight-bold mb-0">اجراء</p>
+                                <h6 class="text-sm mb-0">
+                                    @Html.ActionLink("تعديل", "Edit", new { id = item.ID }, new { @class = "btn" })
+                                </h6>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

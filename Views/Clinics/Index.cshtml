@@ -1,45 +1,56 @@
 ﻿@model IEnumerable<graduation_project.Models.Clinic>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "العيادات";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.description)
-        </th>
-        <th></th>
-    </tr>
+<div class="card ">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+    <div class="table-responsive">
+        <table class="table align-items-center ">
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="w-30">
+                            <div class="d-flex px-2 py-1 align-items-center">
+                                <div class="ms-4">
+                                    <p class="text-xs font-weight-bold mb-0">اسم العيادة</p>
+                                    <h6 class="text-sm mb-0">
+                                        @Html.DisplayFor(modelItem => item.name)
+                                    </h6>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                <p class="text-xs font-weight-bold mb-0">العنوان</p>
+                                <h6 class="text-sm mb-0">
+                                    @Html.DisplayFor(modelItem => item.address)
+                                </h6>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                <p class="text-xs font-weight-bold mb-0">الوصف</p>
+                                <h6 class="text-sm mb-0">
+                                    @Html.DisplayFor(modelItem => item.description)
+                                </h6>
+                            </div>
+                        </td>
+                        <td class="align-middle text-sm">
+                            <div class="col text-center">
+                                <p class="text-xs font-weight-bold mb-0">اجراء</p>
+                                <h6 class="text-sm mb-0">
+                                    @Html.ActionLink("تعديل", "Edit", new { id = item.ID }, new { @class = "btn" }) |
+                                    @Html.ActionLink("حذف", "Delete", new { id = item.ID },new { @class = "btn btn-danger" })
+                                </h6>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+        </table>
+    </div>
+</div>

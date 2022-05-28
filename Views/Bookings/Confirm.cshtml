@@ -1,9 +1,11 @@
-﻿@model IEnumerable<graduation_project.Models.Question>
+﻿@model IEnumerable<graduation_project.Models.Booking>
 
 @{
-    ViewBag.Title = "تاكيد سؤال";
-
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h2>تأكيد حجز</h2>
 
 
 <div class="card ">
@@ -17,18 +19,26 @@
                         <td class="w-30">
                             <div class="d-flex px-2 py-1 align-items-center">
                                 <div class="ms-4">
-                                    <p class="text-xs font-weight-bold mb-0">السؤال</p>
+                                    <p class="text-xs font-weight-bold mb-0">العيادة</p>
                                     <h6 class="text-sm mb-0">
-                                        @Html.DisplayFor(modelItem => item.title)
+                                        @Html.DisplayFor(modelItem => item.Clinic.name)
                                     </h6>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="text-center">
-                                <p class="text-xs font-weight-bold mb-0">التفاصيل</p>
+                                <p class="text-xs font-weight-bold mb-0">الطبيب</p>
                                 <h6 class="text-sm mb-0">
-                                    @Html.DisplayFor(modelItem => item.question1)
+                                    @Html.DisplayFor(modelItem => item.Doctor.Person.name)
+                                </h6>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                <p class="text-xs font-weight-bold mb-0">المراجع</p>
+                                <h6 class="text-sm mb-0">
+                                    @Html.DisplayFor(modelItem => item.Person.name)
                                 </h6>
                             </div>
                         </td>
@@ -39,7 +49,8 @@
                                     @item.date.ToShortDateString()
                                 </h6>
                             </div>
-                        </td> <td>
+                        </td>
+                        <td>
                             <div class="text-center">
                                 <p class="text-xs font-weight-bold mb-0">اجراء</p>
                                 <h6 class="text-sm mb-0">
@@ -48,11 +59,11 @@
                                         @Html.AntiForgeryToken()
                                         <input type="hidden" name="id" value="@Model.FirstOrDefault().ID" />
                                         <input class="btn btn-success" type="submit" value="موافقة" />
-                                    }   
+                                    }
                                 </h6>
                             </div>
                         </td>
-                        
+
                     </tr>
                 }
             </tbody>

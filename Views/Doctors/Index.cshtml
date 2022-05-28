@@ -1,39 +1,50 @@
 ﻿@model IEnumerable<graduation_project.Models.Doctor>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "قائمة الاطباء";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Person.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Specialization.name)
-        </th>
-        <th></th>
-    </tr>
+<div class="card ">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Person.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Specialization.name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    <div class="table-responsive">
+        <table class="table align-items-center ">
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="w-30">
+                            <div class="d-flex px-2 py-1 align-items-center">
+                                <div class="ms-4">
+                                    <p class="text-xs font-weight-bold mb-0">اسم الطبيب</p>
+                                    <h6 class="text-sm mb-0">
+                                        @Html.DisplayFor(modelItem => item.Person.name)
+                                    </h6>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                <p class="text-xs font-weight-bold mb-0">التخصص</p>
+                                <h6 class="text-sm mb-0">
+                                    @Html.DisplayFor(modelItem => item.Specialization.name)
+                                </h6>
+                            </div>
+                        </td>
 
-</table>
+                        <td class="align-middle text-sm">
+                            <div class="col text-center">
+                                <p class="text-xs font-weight-bold mb-0">اجراء</p>
+                                <h6 class="text-sm mb-0">
+                                    @Html.ActionLink("تعديل", "Edit", new { id = item.ID }, new { @class = "btn" }) |
+                                    @Html.ActionLink("حذف", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+                                </h6>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

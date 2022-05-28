@@ -47,12 +47,42 @@ namespace graduation_project.Controllers
             else if(role == "admin")
             {
                 this.bookings = db.Bookings.Include(b => b.Clinic).Include(b => b.Doctor).Include(b => b.Person).Where(b => b.active == true);
+                ViewBag.isAdmin = true;
+                return View(this.bookings.ToList());
+            }
+            return View("~/Views/Shared/noAccess.cshtml");
+        }   
+        public ActionResult Confirm()
+        {
+            string role = isAuthorized();
+            
+            if(role == "admin")
+            {
+                this.bookings = db.Bookings.Include(b => b.Clinic).Include(b => b.Doctor).Include(b => b.Person).Where(b => b.active == null);
+                
                 return View(this.bookings.ToList());
             }
             return View("~/Views/Shared/noAccess.cshtml");
         }
-            // GET: Bookings
-            public ActionResult Index()
+        [HttpPost]
+        public ActionResult Confirm(int id)
+        {
+            db.Bookings.Find(id).active = true;
+            db.SaveChanges();
+
+            ViewBag.pageTitle = "تأكيد حجز";
+            string role = isAuthorized();
+
+            if (role == "admin")
+            {
+                this.bookings = db.Bookings.Include(b => b.Clinic).Include(b => b.Doctor).Include(b => b.Person).Where(b => b.active == null);
+
+                return View(this.bookings.ToList());
+            }
+            return View("~/Views/Shared/noAccess.cshtml");
+        }
+        // GET: Bookings
+        public ActionResult Index()
         {
             ViewBag.pageTitle = "الحجوزات";
 
@@ -71,6 +101,7 @@ namespace graduation_project.Controllers
                     return View(this.bookings.ToList());
                 case "admin":
                      this.bookings = db.Bookings.Include(b => b.Clinic).Include(b => b.Doctor).Include(b => b.Person);
+                    ViewBag.isAdmin = true;
                     return View(this.bookings.ToList());
                 default:
                     return View("~/Views/Shared/noAccess.cshtml");
@@ -103,9 +134,13 @@ namespace graduation_project.Controllers
         public ActionResult Create()
         {if (isAuthorized() == "reviewer")
             {
-                ViewBag.clinicID = new SelectList(db.Clinics, "ID", "name");
-                ViewBag.doctorID = new SelectList(db.Doctors, "ID", "ID");
-                //ViewBag.personID = new SelectList(db.People, "ID", "name");
+                var data = from d in db.Doctors
+                       from p in db.People
+                       where p.ID == d.personID
+                       select new SelectListItem { Value =d.ID.ToString(), Text = p.name };
+
+            ViewBag.clinicID = new SelectList(db.Clinics.Where(c=>c.active==true), "ID", "name");
+            ViewBag.doctorID = new SelectList(data, "Value", "Text");
                 return View();
             }
         
@@ -128,7 +163,7 @@ namespace graduation_project.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.clinicID = new SelectList(db.Clinics, "ID", "name", booking.clinicID);
+            ViewBag.clinicID = new SelectList(db.Clinics.Where(c=>c.active==true), "ID", "name", booking.clinicID);
             ViewBag.doctorID = new SelectList(db.Doctors, "ID", "ID", booking.doctorID);
             //ViewBag.personID = new SelectList(db.People, "ID", "name", booking.personID);
             return View(booking);
@@ -153,7 +188,7 @@ namespace graduation_project.Controllers
                        where p.ID == d.personID
                        select new SelectListItem { Value =d.ID.ToString(), Text = p.name };
 
-            ViewBag.clinicID = new SelectList(db.Clinics, "ID", "name", booking.clinicID);
+            ViewBag.clinicID = new SelectList(db.Clinics.Where(c=>c.active==true), "ID", "name", booking.clinicID);
             ViewBag.doctorID = new SelectList(data, "Value", "Text");
 
             _ = isAuthorized() == "admin" ? ViewBag.isAdmin = true : ViewBag.isAdmin = false;

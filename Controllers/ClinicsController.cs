@@ -15,6 +15,9 @@ namespace graduation_project.Controllers
         private clinicEntities1 db = new clinicEntities1();
         bool isAuthorized()
         {
+            TempData["reservation"] = "True";
+            TempData["questions"] = null;
+            TempData["control"] = null;
             var UserRoles = Session["userRoles"];
             if (UserRoles != null)
             {
@@ -28,6 +31,8 @@ namespace graduation_project.Controllers
         // GET: Clinics
         public ActionResult Index()
         {
+            ViewBag.pageTitle = "العيادات";
+
             if (isAuthorized())
             {
                 return View(db.Clinics.Where(c=>c.active==true).ToList());

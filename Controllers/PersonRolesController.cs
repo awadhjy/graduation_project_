@@ -76,8 +76,21 @@ namespace graduation_project.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.PersonRoles.Add(personRole);
-                db.SaveChanges();
+                bool flag = true;
+                 var personRoles = db.PersonRoles.Include(p => p.Person).Include(p => p.Role).ToList();
+                foreach( var x in personRoles)
+                {
+                    if (x.personID==personRole.personID&& x.roleID == personRole.roleID)
+                    {
+                        flag = false;
+                    }
+
+                }
+                if (flag)
+                {
+                    db.PersonRoles.Add(personRole);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
 

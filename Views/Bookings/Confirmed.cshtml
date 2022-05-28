@@ -19,6 +19,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold ">
                                     @Html.DisplayFor(modelItem => item.Clinic.name) - @Html.DisplayName(" مع الطبيب")   @Html.DisplayFor(modelItem => item.Doctor.Person.name)
+                                    @if (ViewBag.isAdmin != null) { @Html.DisplayName(" للمراجع  -") @Html.DisplayFor(modelItem => item.Person.name)}
 
                                 </p>
                                 <h5 class="font-weight-bolder ">
